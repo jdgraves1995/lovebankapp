@@ -1339,8 +1339,32 @@ body {
         font-size: 28px;
     }
 
-    .header-user {
+    .header-content {
         flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .header-nav {
+        width: 100%;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .header-user {
+        flex-direction: row;
         gap: 8px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .header-user .username {
+        font-size: 12px;
+    }
+
+    #logoutBtn {
+        padding: 6px 12px;
+        font-size: 12px;
     }
 }
