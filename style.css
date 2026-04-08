@@ -1,0 +1,1346 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   THEME COLOR SYSTEM
+   Light Mode (default) & Dark Mode
+   CSS Variables allow theme switching without changing HTML structure
+   =========================== */
+:root {
+    /* PRIMARY BRAND COLORS - Modern Professional Palette
+       Clean, modern tones with warm coral-red as primary */
+    --primary-color: #E36A6A;           /* Warm coral-red - primary actions */
+    --primary-dark: #C85555;            /* Darker warm red - header, bold sections */
+    --primary-light: #FFB2B2;           /* Warm light pink - hover states, accents */
+    
+    /* SECONDARY & STATUS COLORS - Clean professional palette  
+       Teal accents and warm status colors */
+    --success-color: #00C853;           /* Fresh green - positive actions */
+    --warning-color: #FFA500;           /* Amber - caution, warnings */
+    --danger-color: #D32F2F;            /* Bright red - errors, destructive */
+    --secondary-color: #00BCD4;         /* Teal - secondary actions */
+    
+    /* LIGHT MODE - Clean white backgrounds with dark text (default) */
+    --background-color: #F5F7FA;        /* Soft light gray background */
+    --surface-color: #FFFFFF;           /* Pure white cards and surfaces */
+    --text-primary: #1A1A1A;            /* Dark gray text - high contrast */
+    --text-secondary: #6B7280;          /* Medium gray text - secondary info */
+    --border-color: #E5E7EB;            /* Light gray borders */
+    
+    /* Shadows - Create depth and elevation */
+    --shadow-small: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-medium: 0 4px 8px rgba(0,0,0,0.15);
+    --shadow-large: 0 8px 16px rgba(0,0,0,0.2);
+    
+    /* Design System Variables */
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* DARK MODE - Applied when data-theme="dark" attribute is set on root element
+   Dark mode with neutral charcoal tones that complement the warm coral-red accent */
+[data-theme="dark"] {
+    /* Dark Mode Background and surfaces with light text */
+    --background-color: #141416;        /* Neutral dark background */
+    --surface-color: #242428;           /* Neutral dark surface for cards */
+    --text-primary: #F0F0F2;            /* Cool off-white text - high contrast */
+    --text-secondary: #A8A8B0;          /* Neutral gray text - secondary info */
+    --border-color: #353539;            /* Neutral dark borders */
+    
+    /* Darker shadows for dark mode (more subtle) */
+    --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.4);
+    --shadow-large: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    /* Smooth transition when theme changes to avoid jarring color shifts */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===========================
+   GENERAL COMPONENTS
+   =========================== */
+
+.hidden {
+    display: none !important;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: #9e9e9e;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #757575;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #45a049;
+}
+
+.btn-warning {
+    background-color: #FFB2B2;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #E8A1A1;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #e53935;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.1);
+}
+
+/* Messages */
+.message {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 12px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+    border: 1px solid #81c784;
+}
+
+.message.error {
+    background-color: #ffcdd2;
+    color: #c62828;
+    border: 1px solid #ef5350;
+}
+
+.message.info {
+    background-color: #bbdefb;
+    color: #1565c0;
+    border: 1px solid #64b5f6;
+}
+
+/* ===========================
+   SCREENS & LAYOUTS
+   =========================== */
+
+#app {
+    min-height: 100vh;
+    display: flex;
+}
+
+.screen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Login Screen */
+#loginScreen {
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-large);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-header h1 {
+    font-size: 32px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.login-header .tagline {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.login-form .form-group select {
+    width: 100%;
+}
+
+#loginBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 16px;
+}
+
+.login-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 16px;
+}
+
+/* Dashboard */
+#dashboard {
+    /* Modern gradient background that adapts to theme (light/dark) */
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    /* Smooth transition when theme changes */
+    transition: background 0.3s ease;
+}
+
+/* ===========================
+   COLLAPSIBLE HEADER
+   Header minimizes to a thin ridge when not hovered, expands on hover
+   This maximizes content area while keeping navigation accessible
+   =========================== */
+.app-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-medium);
+    /* Smooth animation when transitioning between collapsed/expanded states */
+    transition: all 0.4s ease;
+    /* Position fixed keeps header at top even when scrolling */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    /* Default to expanded state */
+    max-height: 72px;
+    /* Allow dropdown menu to overflow without being clipped */
+    overflow: visible;
+}
+
+/* COLLAPSED STATE: Minimize header to a thin ridge (4px height) at the top
+   This state is active when user is not hovering over the header
+   Shows just enough to indicate something is there */
+.app-header.collapsed {
+    padding: 0 20px;
+    max-height: 4px;
+    box-shadow: var(--shadow-small);
+}
+
+/* EXPANDED STATE: Show full header content when hovering
+   Adding hover state to the header itself */
+.app-header:hover {
+    max-height: 72px;
+    padding: 16px 20px;
+}
+
+.app-header h1 {
+    font-size: 24px;
+    margin: 0;
+    /* Allow text to be visible when header expands */
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+/* Hide header content text when collapsed to avoid visual clutter */
+.app-header.collapsed h1 {
+    opacity: 0;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.header-left {
+    flex-shrink: 0;
+}
+
+.header-nav {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    position: relative;
+    /* Smooth fade when header collapses - slower fade out */
+    transition: opacity 0.6s ease;
+}
+
+/* Hide nav elements when header is collapsed */
+.app-header.collapsed .header-nav {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn.active {
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    position: relative;
+}
+
+.friends-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    /* Position below the Friends button in absolute positioning */
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    /* Use surface color that adapts to theme (light/dark) */
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-large);
+    min-width: 250px;
+    max-height: 400px;
+    overflow-y: auto;
+    /* High z-index ensures dropdown appears above other content */
+    z-index: 100;
+    /* Smooth transitions for theme switching */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Add border for definition in dark mode */
+    border: 1px solid var(--border-color);
+}
+
+.dropdown-menu.hidden {
+    display: none;
+}
+
+.dropdown-header {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.friend-search {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.friend-search:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.dropdown-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    /* Flex layout for friend name and balance */
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Use theme-aware border color */
+    border-bottom: 1px solid var(--border-color);
+    /* Smooth transitions for interactions */
+    transition: var(--transition);
+}
+
+.dropdown-item:hover {
+    /* Highlight on hover using theme-aware colors */
+    background-color: rgba(227, 106, 106, 0.15);
+}
+
+.dropdown-item-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.dropdown-item-balance {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    /* Smooth fade when header collapses */
+    transition: opacity 0.3s ease;
+}
+
+/* Hide user info (username and logout) when header is collapsed
+   Theme toggle button remains visible to maintain functionality */
+.app-header.collapsed .header-user .username,
+.app-header.collapsed #logoutBtn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hide theme toggle button when header is collapsed */
+.app-header.collapsed #themeToggleBtn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.header-user .username {
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+#logoutBtn {
+    transition: opacity 0.3s ease;
+}
+
+/* ===========================
+   THEME TOGGLE SWITCH
+   Day/night cycle toggle displayed as a sliding switch
+   Visual representation of light and dark mode
+   Stays in header and remains accessible during collapse/expand
+   =========================== */
+.theme-toggle-switch {
+    /* Container for the toggle switch */
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 80px;
+    min-height: 36px;
+    transition: all 0.3s ease;
+}
+
+.toggle-track {
+    /* Background track containing day/night icons and sliding knob */
+    position: relative;
+    width: 80px;
+    height: 36px;
+    background: linear-gradient(90deg, #FFE5B4 0%, #6B4C9A 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.toggle-day {
+    /* Sun icon on the right side */
+    font-size: 18px;
+    position: absolute;
+    right: 8px;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.toggle-night {
+    /* Moon icon on the left side */
+    font-size: 18px;
+    position: absolute;
+    left: 8px;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.toggle-knob {
+    /* Sliding circular knob that moves between states */
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.4s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+/* Active state: Move knob to the right for dark mode */
+[data-theme="dark"] .toggle-knob {
+    left: 49px;
+}
+
+/* Active state: Adjust track gradient for dark mode */
+[data-theme="dark"] .toggle-track {
+    background: linear-gradient(90deg, #FFA366 0%, #141416 100%);
+}
+
+.theme-toggle-switch:hover .toggle-track {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Back Button in Header */
+.btn-back {
+    /* Hide by default - only shown when viewing a friend's account */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+.btn-back.hidden {
+    display: inline-block;
+}
+
+/* Show back button when not hidden */
+.btn-back:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ===========================
+   SPLIT LAYOUT CONTAINER
+   Modern two-column design with left sidebar and right content area
+   Uses flexbox to create responsive layout that stacks on mobile
+   Accounts for fixed header by adding margin-top
+   =========================== */
+.dashboard-container {
+    /* Create a flex container that arranges sidebar and main content horizontally */
+    display: flex;
+    flex: 1;
+    height: 100%;
+    /* Smooth transition when switching themes */
+    transition: background-color 0.3s ease;
+    /* Add margin-top to account for fixed header (72px default, 4px when collapsed) */
+    margin-top: 72px;
+}
+
+/* ===========================
+   LEFT SIDEBAR CONTENT
+   Marketing info and feature highlights displayed on the left side
+   On mobile devices, this sidebar hides to save screen space
+   Collapses to 4px width by default, expands on hover like the header
+   =========================== */
+.app-sidebar {
+    /* Default to collapsed state for space efficiency - collapses to 4px like header */
+    width: 4px;
+    background: var(--surface-color);
+    padding: 0;
+    overflow: hidden;
+    /* Smooth transitions for theme switching and collapse/expand */
+    transition: width 0.8s ease, padding 0.8s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Create visual separation from the content area */
+    border-right: 1px solid var(--border-color);
+}
+
+/* EXPANDED STATE: Show full sidebar content when hovering
+   Expands to 35% width to show marketing content and features */
+.app-sidebar:hover {
+    width: 35%;
+    padding: 40px 32px;
+    overflow-y: auto;
+}
+
+.app-sidebar .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    /* Content is revealed/hidden by overflow clipping as sidebar expands/collapses */
+    /* Width constrained to parent when collapsed to ensure no content peeks through */
+    width: 100%;
+    min-width: 0;
+    pointer-events: none;
+}
+
+/* Show sidebar content only when expanded (via hover) */
+.app-sidebar:hover .sidebar-content {
+    pointer-events: auto;
+}
+
+/* Sidebar header styling */
+.sidebar-header {
+    text-align: left;
+    white-space: nowrap;
+}
+
+.sidebar-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.sidebar-tagline {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Feature items list on sidebar */
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Individual feature item styling */
+.feature-item {
+    /* Flex layout to arrange icon and text horizontally */
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(227, 106, 106, 0.12);
+    border-radius: var(--border-radius);
+    /* Smooth transitions for hover effects */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+}
+
+/* Enhance feature item on hover */
+.feature-item:hover {
+    background: rgba(227, 106, 106, 0.18);
+    transform: translateX(4px);
+}
+
+/* Feature icon styling */
+.feature-icon {
+    /* Large emoji icons to draw attention */
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.feature-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.feature-item p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+
+.app-main {
+    /* Right content area takes remaining width (65% of dashboard-container) */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    width: auto;
+    margin: 0;
+    padding: 40px;
+    overflow-y: auto;
+    /* Allows scrolling if content exceeds viewport height */
+}
+
+/* Account Views */
+.account-view {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.account-view.hidden {
+    display: none;
+}
+
+/* Balance Card */
+.balance-card {
+    /* Gradient background for premium look */
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+    color: white;
+    padding: 40px 32px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-large);
+    /* Smooth transition for theme changes and hover effects */
+    transition: all 0.3s ease;
+    /* Position relative for subtle depth effects */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle animated background effect on hover */
+.balance-card::before {
+    /* Hidden overlay for hover effect */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.balance-card:hover::before {
+    /* Show overlay on hover for brightness effect */
+    opacity: 1;
+}
+
+/* Ensure content appears above the pseudo-element */
+.balance-card h2,
+.balance-card .balance-display,
+.balance-card .balance-subtitle {
+    position: relative;
+    z-index: 1;
+}
+
+/* Enhance shadow and lift card on hover for depth perception */
+.balance-card:hover {
+    box-shadow: var(--shadow-large);
+    transform: translateY(-4px);
+}
+
+.balance-card h2 {
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 16px;
+    opacity: 0.9;
+}
+
+.balance-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.balance-amount {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.balance-currency {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.balance-subtitle {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+/* Action Buttons */
+.action-buttons {
+    /* Grid layout allows responsive button arrangement */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.action-buttons .btn {
+    /* Full-width buttons with better padding for touch targets */
+    width: 100%;
+    padding: 14px 16px;
+    /* Smooth transitions for hover and active states */
+    transition: all 0.3s ease;
+    /* Add subtle shadow for depth */
+    box-shadow: var(--shadow-small);
+}
+
+/* Enhanced button hover state */
+.action-buttons .btn:hover {
+    /* Lift button on hover for interactive feedback */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Active/pressed state */
+.action-buttons .btn:active {
+    /* Return to original position when clicked */
+    transform: translateY(0);
+    box-shadow: var(--shadow-small);
+}
+
+/* Center single button in action buttons */
+.action-buttons:has(> .btn:only-child) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.action-buttons:has(> .btn:only-child) .btn {
+    width: auto;
+    min-width: 200px;
+}
+
+/* Content Grid - DEPRECATED (no longer used with new layout) */
+.content-grid {
+    display: none;
+}
+
+/* Panels */
+.transactions-panel {
+    /* Modern card with surface color that changes with theme */
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-small);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Smooth transition for theme switching and hover effects */
+    transition: all 0.3s ease;
+    /* Add subtle border for definition */
+    border: 1px solid var(--border-color);
+}
+
+/* Add elevation effect on hover */
+.transactions-panel:hover {
+    box-shadow: var(--shadow-medium);
+    /* Subtle lift effect */
+    transform: translateY(-2px);
+}
+
+.transactions-panel.full-width {
+    grid-column: 1 / -1;
+}
+
+.panel-header {
+    /* Enhanced padding for better spacing */
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Subtle background gradient for depth */
+    background: linear-gradient(135deg, rgba(227, 106, 106, 0.08) 0%, transparent 100%);
+}
+
+.panel-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.filter-select {
+    /* Modern select box styling */
+    padding: 8px 12px;
+    font-size: 13px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--surface-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-select:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-small);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.1);
+}
+
+/* Friends List */
+.friends-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+    /* Add padding around the list of transactions */
+    padding: 16px;
+}
+
+/* Empty state message styling */
+.empty-state {
+    /* Center and style the "no transactions" message */
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.friend-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.friend-item:hover {
+    background-color: var(--background-color);
+}
+
+.friend-info {
+    flex: 1;
+}
+
+.friend-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.friend-balance {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.friend-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.friend-actions .btn {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.empty-state {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Transactions List */
+.transactions-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.transaction-item {
+    /* Modern card-like appearance for individual transactions */
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface-color);
+    /* Smooth transitions for theme switching and hover effects */
+    transition: all 0.3s ease;
+    /* Subtle shadow for depth */
+    box-shadow: var(--shadow-small);
+}
+
+/* Add elevation and highlight on hover */
+.transaction-item:hover {
+    /* Lift the card slightly when hovering */
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+    /* Slightly brighten background on hover */
+    background: rgba(227, 106, 106, 0.08);
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-description {
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.transaction-timestamp {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.transaction-amount {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: right;
+}
+
+.transaction-amount.deposit {
+    color: var(--success-color);
+}
+
+.transaction-amount.withdrawal {
+    color: var(--danger-color);
+}
+
+/* ===========================
+   MODALS
+   =========================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-content {
+    /* Use surface color that adapts to active theme */
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-large);
+    max-width: 400px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+    /* Smooth transition when switching themes */
+    transition: background-color 0.3s ease;
+}
+
+.modal-content.modal-large {
+    max-width: 600px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modal-footer .btn {
+    flex: 1;
+}
+
+.modal-info {
+    background-color: #e3f2fd;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    font-size: 13px;
+    color: #1565c0;
+    margin-bottom: 16px;
+    border-left: 4px solid #1976d2;
+}
+
+/* Amount Buttons */
+.amount-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.amount-btn {
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: white;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+}
+
+.amount-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--background-color);
+}
+
+.amount-btn.selected {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.selected-amount {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 8px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+}
+
+/* Friend Detail Modal */
+.friend-detail-balance {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.friend-detail-balance .balance-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.friend-detail-balance .balance-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.friend-transactions {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   Adapts layout for different screen sizes using media queries
+   =========================== */
+
+/* TABLET BREAKPOINT (max-width: 768px)
+   Hide sidebar and stack content vertically for better mobile experience */
+@media (max-width: 768px) {
+    /* Stack the dashboard container vertically instead of side-by-side */
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    /* Hide sidebar on tablet - save precious screen real estate */
+    .app-sidebar {
+        display: none;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Expand main content to full width */
+    .app-main {
+        width: 100%;
+        padding: 24px 16px;
+        max-width: 100%;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .balance-card {
+        padding: 24px;
+    }
+
+    .balance-amount {
+        font-size: 36px;
+    }
+
+    .modal-content {
+        max-width: 100%;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .friends-list,
+    .transactions-list {
+        max-height: 250px;
+    }
+}
+
+/* MOBILE BREAKPOINT (max-width: 480px)
+   Further reduce padding and font sizes for small phones */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 24px;
+    }
+
+    .login-header h1 {
+        font-size: 28px;
+    }
+
+    .amount-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .balance-amount {
+        font-size: 28px;
+    }
+
+    .header-user {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

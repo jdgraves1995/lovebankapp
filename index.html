@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Bank - Build Your Relationship</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Screen (Dev Mode: Auto-login) -->
+        <div id="loginScreen" class="screen hidden">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>❤️ Love Bank</h1>
+                    <p class="tagline">Invest in your relationships</p>
+                </div>
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="loginUsername">Select User:</label>
+                        <select id="loginUsername">
+                            <option value="">-- Choose a user --</option>
+                        </select>
+                    </div>
+                    <button id="loginBtn" class="btn btn-primary">Login</button>
+                    <p class="login-note">Dev Mode: Select any test user to continue</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="dashboard" class="screen">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <h1>❤️ Love Bank</h1>
+                    </div>
+                    <div class="header-nav">
+                        <button id="backToAccountBtn" class="btn btn-secondary btn-back hidden">← Back to My Account</button>
+                        <div class="nav-item friends-dropdown">
+                            <button id="friendsBtn" class="nav-btn">Friends</button>
+                            <div id="friendsDropdown" class="dropdown-menu hidden">
+                                <div class="dropdown-header">
+                                    <input type="text" id="friendSearchInput" placeholder="Search friends..." class="friend-search">
+                                </div>
+                                <div id="friendsDropdownList" class="dropdown-list">
+                                    <!-- Friends populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-user">
+                        <!-- Theme Toggle Switch: Day/Night cycle toggle -->
+                        <div id="themeToggleBtn" class="theme-toggle-switch" title="Toggle dark/light mode">
+                            <div class="toggle-track">
+                                <div class="toggle-day">☀️</div>
+                                <div class="toggle-knob"></div>
+                                <div class="toggle-night">🌙</div>
+                            </div>
+                        </div>
+                        <span id="currentUsername" class="username"></span>
+                        <button id="logoutBtn" class="btn btn-small">Logout</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Container: Split Layout with left sidebar and right content area -->
+            <div class="dashboard-container">
+                <!-- LEFT SIDEBAR: Marketing info and features -->
+                <aside class="app-sidebar">
+                    <div class="sidebar-content">
+                        <div class="sidebar-header">
+                            <h2>Welcome to Love Bank</h2>
+                            <p class="sidebar-tagline">Invest in your relationships</p>
+                        </div>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="feature-icon">💖</span>
+                                <div>
+                                    <h3>Track Your Bonds</h3>
+                                    <p>Monitor your love bank balance with friends</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">📈</span>
+                                <div>
+                                    <h3>Invest & Grow</h3>
+                                    <p>Deposit and withdraw love bucks daily</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🤝</span>
+                                <div>
+                                    <h3>Connect Friends</h3>
+                                    <p>Build and manage your friend network</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- RIGHT MAIN CONTENT: Dashboard and account management -->
+                <main class="app-main">
+                    <!-- Own Account View -->
+                    <div id="ownAccountView" class="account-view">
+                        <!-- Balance Card -->
+                        <section class="balance-card">
+                            <h2>Your Love Bank Balance</h2>
+                            <div class="balance-display">
+                                <span id="userBalance" class="balance-amount">0</span>
+                                <span class="balance-currency">Love Bucks</span>
+                            </div>
+                            <p class="balance-subtitle">You have this many Love Bucks available</p>
+                        </section>
+
+                        <!-- Action Buttons -->
+                        <section class="action-buttons">
+                            <button id="depositBtn" class="btn btn-success">Deposit to Friend</button>
+                            <button id="withdrawBtn" class="btn btn-warning">Withdraw from Own Account</button>
+                        </section>
+
+                        <!-- Transaction History -->
+                        <section class="transactions-panel full-width">
+                            <div class="panel-header">
+                                <h3>Recent Transactions</h3>
+                                <select id="transactionFilter" class="filter-select">
+                                    <option value="">All Transactions</option>
+                                    <option value="deposit">Deposits</option>
+                                    <option value="withdrawal">Withdrawals</option>
+                                </select>
+                            </div>
+                            <div id="transactionsList" class="transactions-list">
+                                <!-- Transactions populated by JavaScript -->
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Friend View -->
+                    <div id="friendView" class="account-view hidden">
+                        <!-- Balance Card -->
+                        <section class="balance-card">
+                            <h2 id="friendViewName"></h2>
+                            <div class="balance-display">
+                                <span id="friendViewBalance" class="balance-amount">0</span>
+                                <span class="balance-currency">Love Bucks</span>
+                            </div>
+                            <p class="balance-subtitle" id="friendViewSubtitle"></p>
+                        </section>
+
+                        <!-- Action Button -->
+                        <section class="action-buttons">
+                            <button id="depositToFriendBtn" class="btn btn-success">Deposit to Friend</button>
+                        </section>
+
+                        <!-- Shared Transaction History -->
+                        <section class="transactions-panel full-width">
+                            <div class="panel-header">
+                                <h3>Shared Transaction History</h3>
+                            </div>
+                            <div id="friendViewTransactionsList" class="transactions-list">
+                                <!-- Transactions populated by JavaScript -->
+                            </div>
+                        </section>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Deposit Modal -->
+    <div id="depositModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Deposit to Friend</h2>
+                <button class="modal-close" data-modal="depositModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="depositFriendSelect">Select Friend:</label>
+                    <select id="depositFriendSelect">
+                        <option value="">-- Choose a friend --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount:</label>
+                    <div class="amount-buttons">
+                        <button class="amount-btn" data-amount="1">1</button>
+                        <button class="amount-btn" data-amount="5">5</button>
+                        <button class="amount-btn" data-amount="10">10</button>
+                        <button class="amount-btn" data-amount="100">100</button>
+                    </div>
+                    <div class="selected-amount">
+                        Selected: <span id="depositAmount">0</span> Love Bucks
+                    </div>
+                </div>
+                <div id="depositMessage" class="message hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="depositCancelBtn" class="btn btn-secondary">Cancel</button>
+                <button id="depositConfirmBtn" class="btn btn-success">Confirm Deposit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdrawModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Withdraw from Your Account</h2>
+                <button class="modal-close" data-modal="withdrawModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-info">You can only withdraw from your own Love Bank. This amount will be deducted from your balance.</p>
+                <div class="form-group">
+                    <label>Amount:</label>
+                    <div class="amount-buttons">
+                        <button class="amount-btn" data-amount="1">1</button>
+                        <button class="amount-btn" data-amount="5">5</button>
+                        <button class="amount-btn" data-amount="10">10</button>
+                        <button class="amount-btn" data-amount="100">100</button>
+                    </div>
+                    <div class="selected-amount">
+                        Selected: <span id="withdrawAmount">0</span> Love Bucks
+                    </div>
+                </div>
+                <div id="withdrawMessage" class="message hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="withdrawCancelBtn" class="btn btn-secondary">Cancel</button>
+                <button id="withdrawConfirmBtn" class="btn btn-warning">Confirm Withdrawal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Friend Modal -->
+    <div id="addFriendModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Friend</h2>
+                <button class="modal-close" data-modal="addFriendModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="addFriendSelect">Select User to Add:</label>
+                    <select id="addFriendSelect">
+                        <option value="">-- Choose a user --</option>
+                    </select>
+                </div>
+                <div id="addFriendMessage" class="message hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="addFriendCancelBtn" class="btn btn-secondary">Cancel</button>
+                <button id="addFriendConfirmBtn" class="btn btn-success">Add Friend</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for modals -->
+    <div id="modalOverlay" class="modal-overlay hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
