@@ -1319,6 +1319,16 @@ body {
 /* MOBILE BREAKPOINT (max-width: 480px)
    Further reduce padding and font sizes for small phones */
 @media (max-width: 480px) {
+    .app-header {
+        max-height: 140px;
+        padding: 12px 16px;
+    }
+
+    .app-header:hover {
+        max-height: 140px;
+        padding: 12px 16px;
+    }
+
     .login-container {
         padding: 24px;
     }
