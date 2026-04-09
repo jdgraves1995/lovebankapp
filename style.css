@@ -877,6 +877,44 @@ body {
     pointer-events: none;
 }
 
+/* Shimmer sweep — diagonal light streak */
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(-15deg); }
+    100% { transform: translateX(200%) rotate(-15deg); }
+}
+
+.balance-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.12) 40%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0.12) 60%,
+        transparent 100%
+    );
+    transform: translateX(-100%) rotate(-15deg);
+    animation: shimmer 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+[data-theme="dark"] .balance-card::after {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(240, 147, 251, 0.06) 40%,
+        rgba(240, 147, 251, 0.12) 50%,
+        rgba(240, 147, 251, 0.06) 60%,
+        transparent 100%
+    );
+}
+
 .balance-card:hover::before {
     opacity: 0;
 }
@@ -892,7 +930,7 @@ body {
 .balance-card .balance-display,
 .balance-card .balance-subtitle {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .balance-card h2 {
