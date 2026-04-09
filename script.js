@@ -855,16 +855,9 @@ const ThemeManager = {
         this.applyTheme(newTheme);
     },
 
-    // Update the toggle button icon to show what theme is active
-    // Shows 🌙 moon in light mode (indicating dark mode is available)
-    // Shows ☀️ sun in dark mode (indicating light mode is available)
-    updateToggleIcon() {
-        const icon = document.querySelector('.theme-icon');
-        if (icon) {
-            // Show opposite icon to encourage switching
-            icon.textContent = this.currentTheme === 'light' ? '🌙' : '☀️';
-        }
-    },
+    // Icon crossfade is handled entirely by CSS [data-theme] selectors,
+    // so no JS icon swap is needed for the glassmorphic orb.
+    updateToggleIcon() {},
 
     // Attach click listener to the theme toggle button
     setupToggleListener() {
