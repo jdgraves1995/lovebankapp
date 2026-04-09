@@ -5,64 +5,104 @@
 }
 
 /* ===========================
-   THEME COLOR SYSTEM
-   Light Mode (default) & Dark Mode
-   CSS Variables allow theme switching without changing HTML structure
+   THEME COLOR SYSTEM — GLASSMORPHISM
+   Frosted-glass aesthetics with animated gradient mesh backgrounds.
+   CSS Variables power light/dark mode switching.
    =========================== */
 :root {
-    /* PRIMARY BRAND COLORS - Modern Professional Palette
-       Clean, modern tones with warm coral-red as primary */
-    --primary-color: #E36A6A;           /* Warm coral-red - primary actions */
-    --primary-dark: #C85555;            /* Darker warm red - header, bold sections */
-    --primary-light: #FFB2B2;           /* Warm light pink - hover states, accents */
-    
-    /* SECONDARY & STATUS COLORS - Clean professional palette  
-       Teal accents and warm status colors */
-    --success-color: #00C853;           /* Fresh green - positive actions */
-    --warning-color: #FFA500;           /* Amber - caution, warnings */
-    --danger-color: #D32F2F;            /* Bright red - errors, destructive */
-    --secondary-color: #00BCD4;         /* Teal - secondary actions */
-    
-    /* LIGHT MODE - Clean white backgrounds with dark text (default) */
-    --background-color: #F5F7FA;        /* Soft light gray background */
-    --surface-color: #FFFFFF;           /* Pure white cards and surfaces */
-    --text-primary: #1A1A1A;            /* Dark gray text - high contrast */
-    --text-secondary: #6B7280;          /* Medium gray text - secondary info */
-    --border-color: #E5E7EB;            /* Light gray borders */
-    
-    /* Shadows - Create depth and elevation */
-    --shadow-small: 0 2px 4px rgba(0,0,0,0.1);
-    --shadow-medium: 0 4px 8px rgba(0,0,0,0.15);
-    --shadow-large: 0 8px 16px rgba(0,0,0,0.2);
-    
-    /* Design System Variables */
-    --border-radius: 8px;
+    /* PRIMARY BRAND COLORS — Rose-to-violet glassmorphism palette */
+    --primary-color: #E36A6A;
+    --primary-dark: #C85555;
+    --primary-light: #FFB2B2;
+    --primary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+
+    /* SECONDARY & STATUS COLORS */
+    --success-color: #00C853;
+    --warning-color: #FFA500;
+    --danger-color: #D32F2F;
+    --secondary-color: #00BCD4;
+
+    /* LIGHT MODE — Glass surfaces on bright mesh */
+    --background-color: #eef1f7;
+    --surface-color: #FFFFFF;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B7280;
+    --border-color: #E5E7EB;
+
+    /* GLASS TOKENS */
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-bg-hover: rgba(255, 255, 255, 0.6);
+    --glass-blur: blur(16px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+    /* Shadows — softer for glass aesthetic */
+    --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+    /* Design System */
+    --border-radius: 16px;
+    --border-radius-sm: 12px;
+    --border-radius-pill: 50px;
     --transition: all 0.3s ease;
 }
 
-/* DARK MODE - Applied when data-theme="dark" attribute is set on root element
-   Dark mode with neutral charcoal tones that complement the warm coral-red accent */
+/* DARK MODE — Deep navy mesh with dark-tinted glass */
 [data-theme="dark"] {
-    /* Dark Mode Background and surfaces with light text */
-    --background-color: #141416;        /* Neutral dark background */
-    --surface-color: #242428;           /* Neutral dark surface for cards */
-    --text-primary: #F0F0F2;            /* Cool off-white text - high contrast */
-    --text-secondary: #A8A8B0;          /* Neutral gray text - secondary info */
-    --border-color: #353539;            /* Neutral dark borders */
-    
-    /* Darker shadows for dark mode (more subtle) */
-    --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.3);
-    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.4);
-    --shadow-large: 0 8px 16px rgba(0, 0, 0, 0.5);
+    --background-color: #0f0f1a;
+    --surface-color: #1a1a2e;
+    --text-primary: #F0F0F2;
+    --text-secondary: #A8A8B0;
+    --border-color: #2a2a3e;
+
+    --glass-bg: rgba(30, 30, 50, 0.5);
+    --glass-bg-hover: rgba(40, 40, 65, 0.65);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ===========================
+   ANIMATED GRADIENT MESH BACKGROUND
+   Slowly shifting radial-gradient blobs create a living backdrop.
+   =========================== */
+@keyframes meshShift {
+    0%, 100% { background-position: 0% 50%; }
+    25% { background-position: 50% 0%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 100%; }
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: var(--background-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--text-primary);
     line-height: 1.5;
-    /* Smooth transition when theme changes to avoid jarring color shifts */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    transition: color 0.3s ease;
+    /* Animated gradient mesh */
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(240, 147, 251, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(245, 87, 108, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(251, 207, 147, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 90%, rgba(147, 197, 251, 0.15) 0%, transparent 50%),
+        var(--background-color);
+    background-size: 200% 200%;
+    animation: meshShift 20s ease infinite;
+}
+
+[data-theme="dark"] body {
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(140, 47, 151, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(145, 37, 68, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(100, 80, 40, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 90%, rgba(47, 97, 151, 0.1) 0%, transparent 50%),
+        var(--background-color);
+    background-size: 200% 200%;
+    animation: meshShift 20s ease infinite;
 }
 
 /* ===========================
@@ -73,80 +113,90 @@ body {
     display: none !important;
 }
 
-/* Buttons */
+/* Buttons — Pill-shaped glassmorphic */
 .btn {
-    padding: 10px 16px;
+    padding: 10px 20px;
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-pill);
     font-size: 14px;
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
     transition: var(--transition);
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
 }
 
 .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(227, 106, 106, 0.25);
 }
 
 .btn:active {
-    transform: translateY(0);
+    transform: scale(0.98);
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(227, 106, 106, 0.85), rgba(200, 85, 85, 0.9));
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-dark);
+    background: linear-gradient(135deg, rgba(227, 106, 106, 1), rgba(200, 85, 85, 1));
+    box-shadow: 0 0 24px rgba(227, 106, 106, 0.4);
 }
 
 .btn-secondary {
-    background-color: #9e9e9e;
-    color: white;
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    border: var(--glass-border);
 }
 
 .btn-secondary:hover {
-    background-color: #757575;
+    background: var(--glass-bg-hover);
 }
 
 .btn-success {
-    background-color: var(--success-color);
+    background: linear-gradient(135deg, rgba(0, 200, 83, 0.8), rgba(0, 170, 70, 0.9));
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-success:hover {
-    background-color: #45a049;
+    box-shadow: 0 0 24px rgba(0, 200, 83, 0.35);
 }
 
 .btn-warning {
-    background-color: #FFB2B2;
+    background: linear-gradient(135deg, rgba(255, 178, 178, 0.85), rgba(232, 161, 161, 0.9));
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-warning:hover {
-    background-color: #E8A1A1;
+    box-shadow: 0 0 24px rgba(255, 178, 178, 0.35);
 }
 
 .btn-danger {
-    background-color: var(--danger-color);
+    background: linear-gradient(135deg, rgba(211, 47, 47, 0.85), rgba(229, 57, 53, 0.9));
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-danger:hover {
-    background-color: #e53935;
+    box-shadow: 0 0 24px rgba(211, 47, 47, 0.35);
 }
 
 .btn-small {
-    padding: 6px 12px;
+    padding: 6px 14px;
     font-size: 12px;
 }
 
-/* Forms */
+/* Forms — Glassmorphic inputs */
 .form-group {
     margin-bottom: 16px;
 }
@@ -162,45 +212,65 @@ body {
 .form-group select,
 .form-group input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    padding: 10px 14px;
+    border: var(--glass-border);
+    border-radius: var(--border-radius-sm);
     font-size: 14px;
+    font-family: inherit;
     transition: var(--transition);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
 }
 
 .form-group select:focus,
 .form-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.1);
+    box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.15), 0 0 16px rgba(227, 106, 106, 0.1);
+    background: var(--glass-bg-hover);
 }
 
-/* Messages */
+/* Messages — Glass with status-color tint */
 .message {
-    padding: 12px;
-    border-radius: var(--border-radius);
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
     margin-bottom: 12px;
     font-size: 14px;
     text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .message.success {
-    background-color: #c8e6c9;
+    background: rgba(0, 200, 83, 0.15);
     color: #2e7d32;
-    border: 1px solid #81c784;
+    border: 1px solid rgba(0, 200, 83, 0.3);
+}
+
+[data-theme="dark"] .message.success {
+    color: #81c784;
 }
 
 .message.error {
-    background-color: #ffcdd2;
+    background: rgba(211, 47, 47, 0.12);
     color: #c62828;
-    border: 1px solid #ef5350;
+    border: 1px solid rgba(211, 47, 47, 0.25);
+}
+
+[data-theme="dark"] .message.error {
+    color: #ef5350;
 }
 
 .message.info {
-    background-color: #bbdefb;
+    background: rgba(30, 136, 229, 0.12);
     color: #1565c0;
-    border: 1px solid #64b5f6;
+    border: 1px solid rgba(30, 136, 229, 0.25);
+}
+
+[data-theme="dark"] .message.info {
+    color: #64b5f6;
 }
 
 /* ===========================
@@ -218,20 +288,24 @@ body {
     flex-direction: column;
 }
 
-/* Login Screen */
+/* Login Screen — Glass card on mesh background */
 #loginScreen {
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    min-height: 100vh;
     padding: 20px;
+    /* Inherits body mesh background */
 }
 
 .login-container {
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-large);
-    padding: 40px;
-    max-width: 400px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    padding: 48px 40px;
+    max-width: 420px;
     width: 100%;
 }
 
@@ -242,13 +316,15 @@ body {
 
 .login-header h1 {
     font-size: 32px;
-    color: var(--primary-color);
+    font-weight: 700;
+    color: var(--text-primary);
     margin-bottom: 8px;
 }
 
 .login-header .tagline {
     color: var(--text-secondary);
     font-size: 14px;
+    font-weight: 500;
 }
 
 .login-form .form-group select {
@@ -257,7 +333,7 @@ body {
 
 #loginBtn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     font-size: 16px;
     margin-top: 16px;
 }
@@ -271,63 +347,57 @@ body {
 
 /* Dashboard */
 #dashboard {
-    /* Modern gradient background that adapts to theme (light/dark) */
-    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
-    /* Smooth transition when theme changes */
     transition: background 0.3s ease;
 }
 
 /* ===========================
-   COLLAPSIBLE HEADER
-   Header minimizes to a thin ridge when not hovered, expands on hover
-   This maximizes content area while keeping navigation accessible
+   HEADER — Always-visible slim glassmorphic bar
+   No more collapsing — clean, permanently accessible navigation.
    =========================== */
 .app-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 16px 20px;
-    box-shadow: var(--shadow-medium);
-    /* Smooth animation when transitioning between collapsed/expanded states */
-    transition: all 0.4s ease;
-    /* Position fixed keeps header at top even when scrolling */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: var(--glass-border);
+    color: var(--text-primary);
+    padding: 14px 24px;
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 999;
-    /* Default to expanded state */
-    max-height: 72px;
-    /* Allow dropdown menu to overflow without being clipped */
+    height: 64px;
     overflow: visible;
 }
 
-/* COLLAPSED STATE: Minimize header to a thin ridge (4px height) at the top
-   This state is active when user is not hovering over the header
-   Shows just enough to indicate something is there */
+/* Collapse classes kept for JS compatibility but visually inert */
 .app-header.collapsed {
-    padding: 0 20px;
-    max-height: 4px;
-    box-shadow: var(--shadow-small);
+    /* No visual change — header stays visible */
+    height: 64px;
+    padding: 14px 24px;
 }
 
-/* EXPANDED STATE: Show full header content when hovering
-   Adding hover state to the header itself */
 .app-header:hover {
-    max-height: 72px;
-    padding: 16px 20px;
+    height: 64px;
+    padding: 14px 24px;
 }
 
 .app-header h1 {
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: 700;
     margin: 0;
-    /* Allow text to be visible when header expands */
     opacity: 1;
-    transition: opacity 0.6s ease;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-/* Hide header content text when collapsed to avoid visual clutter */
+/* Keep selectors so JS class toggles remain harmless */
 .app-header.collapsed h1 {
-    opacity: 0;
+    opacity: 1;
 }
 
 .header-content {
@@ -337,6 +407,7 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
+    height: 100%;
 }
 
 .header-left {
@@ -348,35 +419,38 @@ body {
     gap: 8px;
     flex: 1;
     position: relative;
-    /* Smooth fade when header collapses - slower fade out */
-    transition: opacity 0.6s ease;
+    transition: opacity 0.3s ease;
 }
 
-/* Hide nav elements when header is collapsed */
+/* Keep for JS compatibility — no visual effect */
 .app-header.collapsed .header-nav {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .nav-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 4px;
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    border: var(--glass-border);
+    padding: 8px 18px;
+    border-radius: var(--border-radius-pill);
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
+    font-family: inherit;
     transition: var(--transition);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--glass-bg-hover);
+    box-shadow: 0 0 16px rgba(227, 106, 106, 0.15);
 }
 
 .nav-btn.active {
-    background: rgba(255, 255, 255, 0.4);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.3), rgba(245, 87, 108, 0.3));
+    border-color: rgba(227, 106, 106, 0.3);
 }
 
 .nav-item {
@@ -387,24 +461,22 @@ body {
     position: relative;
 }
 
+/* Dropdown Menu — Glassmorphic */
 .dropdown-menu {
-    /* Position below the Friends button in absolute positioning */
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
-    /* Use surface color that adapts to theme (light/dark) */
-    background: var(--surface-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-large);
-    min-width: 250px;
+    box-shadow: var(--glass-shadow);
+    min-width: 260px;
     max-height: 400px;
     overflow-y: auto;
-    /* High z-index ensures dropdown appears above other content */
     z-index: 100;
-    /* Smooth transitions for theme switching */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Add border for definition in dark mode */
-    border: 1px solid var(--border-color);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .dropdown-menu.hidden {
@@ -413,20 +485,34 @@ body {
 
 .dropdown-header {
     padding: 12px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .dropdown-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .friend-search {
     width: 100%;
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    padding: 8px 12px;
+    border: var(--glass-border);
+    border-radius: var(--border-radius-sm);
     font-size: 13px;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+[data-theme="dark"] .friend-search {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .friend-search:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(227, 106, 106, 0.15);
 }
 
 .dropdown-list {
@@ -435,21 +521,21 @@ body {
 }
 
 .dropdown-item {
-    /* Flex layout for friend name and balance */
     padding: 12px 16px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Use theme-aware border color */
-    border-bottom: 1px solid var(--border-color);
-    /* Smooth transitions for interactions */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition);
 }
 
+[data-theme="dark"] .dropdown-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
 .dropdown-item:hover {
-    /* Highlight on hover using theme-aware colors */
-    background-color: rgba(227, 106, 106, 0.15);
+    background: rgba(240, 147, 251, 0.1);
 }
 
 .dropdown-item-name {
@@ -467,28 +553,25 @@ body {
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
-    /* Smooth fade when header collapses */
     transition: opacity 0.3s ease;
 }
 
-/* Hide user info (username and logout) when header is collapsed
-   Theme toggle button remains visible to maintain functionality */
+/* Keep for JS compatibility — no visual effect */
 .app-header.collapsed .header-user .username,
 .app-header.collapsed #logoutBtn {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
 }
 
-/* Hide theme toggle button when header is collapsed */
 .app-header.collapsed #themeToggleBtn {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
 }
-
 
 .header-user .username {
     font-weight: 600;
     font-size: 14px;
+    color: var(--text-primary);
     transition: opacity 0.3s ease;
 }
 
@@ -497,13 +580,9 @@ body {
 }
 
 /* ===========================
-   THEME TOGGLE SWITCH
-   Day/night cycle toggle displayed as a sliding switch
-   Visual representation of light and dark mode
-   Stays in header and remains accessible during collapse/expand
+   THEME TOGGLE SWITCH — Glassmorphic track
    =========================== */
 .theme-toggle-switch {
-    /* Container for the toggle switch */
     cursor: pointer;
     flex-shrink: 0;
     min-width: 80px;
@@ -512,21 +591,22 @@ body {
 }
 
 .toggle-track {
-    /* Background track containing day/night icons and sliding knob */
     position: relative;
     width: 80px;
     height: 36px;
-    background: linear-gradient(90deg, #FFE5B4 0%, #6B4C9A 100%);
+    background: linear-gradient(90deg, rgba(255, 229, 180, 0.6) 0%, rgba(107, 76, 154, 0.5) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 20px;
     display: flex;
     align-items: center;
     padding: 0 6px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
     transition: all 0.4s ease;
 }
 
 .toggle-day {
-    /* Sun icon on the right side */
     font-size: 18px;
     position: absolute;
     right: 8px;
@@ -535,7 +615,6 @@ body {
 }
 
 .toggle-night {
-    /* Moon icon on the left side */
     font-size: 18px;
     position: absolute;
     left: 8px;
@@ -544,50 +623,48 @@ body {
 }
 
 .toggle-knob {
-    /* Sliding circular knob that moves between states */
     position: absolute;
     width: 26px;
     height: 26px;
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 50%;
     left: 5px;
     top: 50%;
     transform: translateY(-50%);
     transition: left 0.4s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     z-index: 2;
 }
 
-/* Active state: Move knob to the right for dark mode */
 [data-theme="dark"] .toggle-knob {
     left: 49px;
+    background: rgba(200, 200, 220, 0.8);
 }
 
-/* Active state: Adjust track gradient for dark mode */
 [data-theme="dark"] .toggle-track {
-    background: linear-gradient(90deg, #FFA366 0%, #141416 100%);
+    background: linear-gradient(90deg, rgba(255, 163, 102, 0.4) 0%, rgba(20, 20, 30, 0.6) 100%);
+    border-color: rgba(255, 255, 255, 0.06);
 }
 
 .theme-toggle-switch:hover .toggle-track {
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 12px rgba(240, 147, 251, 0.2);
 }
-
 
 /* Back Button in Header */
 .btn-back {
-    /* Hide by default - only shown when viewing a friend's account */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
     font-size: 13px;
-    padding: 8px 12px;
+    padding: 8px 16px;
 }
 
 .btn-back.hidden {
     display: inline-block;
 }
 
-/* Show back button when not hidden */
 .btn-back:not(.hidden) {
     opacity: 1;
     pointer-events: auto;
@@ -595,144 +672,157 @@ body {
 
 /* ===========================
    SPLIT LAYOUT CONTAINER
-   Modern two-column design with left sidebar and right content area
-   Uses flexbox to create responsive layout that stacks on mobile
-   Accounts for fixed header by adding margin-top
+   Two-column layout with glassmorphic sidebar icon-rail.
    =========================== */
 .dashboard-container {
-    /* Create a flex container that arranges sidebar and main content horizontally */
     display: flex;
     flex: 1;
     height: 100%;
-    /* Smooth transition when switching themes */
     transition: background-color 0.3s ease;
-    /* Add margin-top to account for fixed header (72px default, 4px when collapsed) */
-    margin-top: 72px;
+    margin-top: 64px;
 }
 
 /* ===========================
-   LEFT SIDEBAR CONTENT
-   Marketing info and feature highlights displayed on the left side
-   On mobile devices, this sidebar hides to save screen space
-   Collapses to 4px width by default, expands on hover like the header
+   LEFT SIDEBAR — Glassmorphic icon rail
+   72px collapsed showing emoji icons, 280px expanded on hover.
    =========================== */
 .app-sidebar {
-    /* Default to collapsed state for space efficiency - collapses to 4px like header */
-    width: 4px;
-    background: var(--surface-color);
-    padding: 0;
+    width: 72px;
+    min-width: 72px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-right: var(--glass-border);
+    padding: 24px 8px;
     overflow: hidden;
-    /* Smooth transitions for theme switching and collapse/expand */
-    transition: width 0.8s ease, padding 0.8s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Create visual separation from the content area */
-    border-right: 1px solid var(--border-color);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.3s ease;
+    position: relative;
 }
 
-/* EXPANDED STATE: Show full sidebar content when hovering
-   Expands to 35% width to show marketing content and features */
 .app-sidebar:hover {
-    width: 35%;
-    padding: 40px 32px;
+    width: 280px;
+    min-width: 280px;
+    padding: 24px 24px;
     overflow-y: auto;
 }
 
 .app-sidebar .sidebar-content {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    /* Content is revealed/hidden by overflow clipping as sidebar expands/collapses */
-    /* Width constrained to parent when collapsed to ensure no content peeks through */
+    gap: 24px;
     width: 100%;
     min-width: 0;
     pointer-events: none;
 }
 
-/* Show sidebar content only when expanded (via hover) */
 .app-sidebar:hover .sidebar-content {
     pointer-events: auto;
 }
 
-/* Sidebar header styling */
+/* Sidebar header — hidden when collapsed, visible on hover */
 .sidebar-header {
     text-align: left;
     white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+}
+
+.app-sidebar:hover .sidebar-header {
+    opacity: 1;
 }
 
 .sidebar-header h2 {
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
 }
 
-
 .sidebar-tagline {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-secondary);
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
 }
 
-/* Feature items list on sidebar */
+/* Feature items list */
 .features-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
 }
 
-/* Individual feature item styling */
+/* Feature items — show icon only when collapsed, full row when expanded */
 .feature-item {
-    /* Flex layout to arrange icon and text horizontally */
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 16px;
-    background: rgba(227, 106, 106, 0.12);
-    border-radius: var(--border-radius);
-    /* Smooth transitions for hover effects */
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    background: rgba(240, 147, 251, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-sm);
+    transition: background 0.3s ease, transform 0.3s ease;
     overflow: hidden;
+    white-space: nowrap;
+    min-height: 48px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
-/* Enhance feature item on hover */
+[data-theme="dark"] .feature-item {
+    background: rgba(240, 147, 251, 0.05);
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
 .feature-item:hover {
-    background: rgba(227, 106, 106, 0.18);
-    transform: translateX(4px);
+    background: rgba(240, 147, 251, 0.15);
+    transform: translateX(2px);
 }
 
-/* Feature icon styling */
 .feature-icon {
-    /* Large emoji icons to draw attention */
-    font-size: 28px;
+    font-size: 24px;
     flex-shrink: 0;
-    margin-top: 2px;
+    min-width: 24px;
+    text-align: center;
 }
 
 .feature-item h3 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-primary);
-    margin: 0 0 4px 0;
+    margin: 0 0 2px 0;
     white-space: nowrap;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
 }
 
 .feature-item p {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-secondary);
     margin: 0;
     line-height: 1.4;
     white-space: nowrap;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
 }
 
+.app-sidebar:hover .feature-item h3,
+.app-sidebar:hover .feature-item p {
+    opacity: 1;
+}
 
-
+/* ===========================
+   MAIN CONTENT AREA
+   =========================== */
 .app-main {
-    /* Right content area takes remaining width (65% of dashboard-container) */
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -741,7 +831,6 @@ body {
     margin: 0;
     padding: 40px;
     overflow-y: auto;
-    /* Allows scrolling if content exceeds viewport height */
 }
 
 /* Account Views */
@@ -755,43 +844,50 @@ body {
     display: none;
 }
 
-/* Balance Card */
+/* ===========================
+   BALANCE CARD — Premium glassmorphic card
+   =========================== */
 .balance-card {
-    /* Gradient background for premium look */
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
-    color: white;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    color: var(--text-primary);
     padding: 40px 32px;
-    border-radius: var(--border-radius);
+    border-radius: 20px;
     margin-bottom: 24px;
     text-align: center;
-    box-shadow: var(--shadow-large);
-    /* Smooth transition for theme changes and hover effects */
+    box-shadow: var(--glass-shadow);
     transition: all 0.3s ease;
-    /* Position relative for subtle depth effects */
     position: relative;
     overflow: hidden;
 }
 
-/* Subtle animated background effect on hover */
+/* Subtle gradient tint overlay */
 .balance-card::before {
-    /* Hidden overlay for hover effect */
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.1);
-    opacity: 0;
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.08) 100%);
+    opacity: 1;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .balance-card:hover::before {
-    /* Show overlay on hover for brightness effect */
-    opacity: 1;
+    opacity: 0;
 }
 
-/* Ensure content appears above the pseudo-element */
+.balance-card:hover {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 12px 40px rgba(240, 147, 251, 0.12);
+    transform: translateY(-4px);
+}
+
 .balance-card h2,
 .balance-card .balance-display,
 .balance-card .balance-subtitle {
@@ -799,17 +895,11 @@ body {
     z-index: 1;
 }
 
-/* Enhance shadow and lift card on hover for depth perception */
-.balance-card:hover {
-    box-shadow: var(--shadow-large);
-    transform: translateY(-4px);
-}
-
 .balance-card h2 {
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 500;
     margin-bottom: 16px;
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 .balance-display {
@@ -821,23 +911,29 @@ body {
 }
 
 .balance-amount {
-    font-size: 48px;
-    font-weight: bold;
+    font-size: 52px;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .balance-currency {
     font-size: 16px;
-    opacity: 0.9;
+    opacity: 0.7;
+    font-weight: 500;
 }
 
 .balance-subtitle {
     font-size: 12px;
-    opacity: 0.85;
+    opacity: 0.6;
 }
 
-/* Action Buttons */
+/* ===========================
+   ACTION BUTTONS
+   =========================== */
 .action-buttons {
-    /* Grid layout allows responsive button arrangement */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
@@ -845,30 +941,22 @@ body {
 }
 
 .action-buttons .btn {
-    /* Full-width buttons with better padding for touch targets */
     width: 100%;
     padding: 14px 16px;
-    /* Smooth transitions for hover and active states */
     transition: all 0.3s ease;
-    /* Add subtle shadow for depth */
     box-shadow: var(--shadow-small);
 }
 
-/* Enhanced button hover state */
 .action-buttons .btn:hover {
-    /* Lift button on hover for interactive feedback */
-    transform: translateY(-2px);
+    transform: scale(1.03);
     box-shadow: var(--shadow-medium);
 }
 
-/* Active/pressed state */
 .action-buttons .btn:active {
-    /* Return to original position when clicked */
-    transform: translateY(0);
+    transform: scale(0.98);
     box-shadow: var(--shadow-small);
 }
 
-/* Center single button in action buttons */
 .action-buttons:has(> .btn:only-child) {
     grid-template-columns: 1fr;
     justify-items: center;
@@ -879,30 +967,29 @@ body {
     min-width: 200px;
 }
 
-/* Content Grid - DEPRECATED (no longer used with new layout) */
+/* Content Grid — DEPRECATED */
 .content-grid {
     display: none;
 }
 
-/* Panels */
+/* ===========================
+   PANELS — Glassmorphic cards for transactions, friends
+   =========================== */
 .transactions-panel {
-    /* Modern card with surface color that changes with theme */
-    background: var(--surface-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-small);
+    box-shadow: var(--glass-shadow);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* Smooth transition for theme switching and hover effects */
     transition: all 0.3s ease;
-    /* Add subtle border for definition */
-    border: 1px solid var(--border-color);
 }
 
-/* Add elevation effect on hover */
 .transactions-panel:hover {
-    box-shadow: var(--shadow-medium);
-    /* Subtle lift effect */
+    box-shadow: 0 8px 36px rgba(240, 147, 251, 0.1);
     transform: translateY(-2px);
 }
 
@@ -911,14 +998,16 @@ body {
 }
 
 .panel-header {
-    /* Enhanced padding for better spacing */
     padding: 20px 24px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Subtle background gradient for depth */
-    background: linear-gradient(135deg, rgba(227, 106, 106, 0.08) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.06) 0%, transparent 100%);
+}
+
+[data-theme="dark"] .panel-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .panel-header h3 {
@@ -929,12 +1018,14 @@ body {
 }
 
 .filter-select {
-    /* Modern select box styling */
-    padding: 8px 12px;
+    padding: 8px 14px;
     font-size: 13px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: var(--surface-color);
+    font-family: inherit;
+    border: var(--glass-border);
+    border-radius: var(--border-radius-pill);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -942,13 +1033,13 @@ body {
 
 .filter-select:hover {
     border-color: var(--primary-color);
-    box-shadow: var(--shadow-small);
+    box-shadow: 0 0 12px rgba(227, 106, 106, 0.1);
 }
 
 .filter-select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.1);
+    box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.12);
 }
 
 /* Friends List */
@@ -956,13 +1047,10 @@ body {
     flex: 1;
     overflow-y: auto;
     max-height: 400px;
-    /* Add padding around the list of transactions */
     padding: 16px;
 }
 
-/* Empty state message styling */
 .empty-state {
-    /* Center and style the "no transactions" message */
     text-align: center;
     padding: 32px 16px;
     color: var(--text-secondary);
@@ -971,16 +1059,22 @@ body {
 
 .friend-item {
     padding: 12px 16px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     transition: var(--transition);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 4px;
+}
+
+[data-theme="dark"] .friend-item {
+    border-bottom-color: rgba(255, 255, 255, 0.04);
 }
 
 .friend-item:hover {
-    background-color: var(--background-color);
+    background: rgba(240, 147, 251, 0.08);
 }
 
 .friend-info {
@@ -1004,15 +1098,8 @@ body {
 }
 
 .friend-actions .btn {
-    padding: 4px 8px;
+    padding: 4px 10px;
     font-size: 11px;
-}
-
-.empty-state {
-    padding: 32px 16px;
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 14px;
 }
 
 /* Transactions List */
@@ -1020,31 +1107,32 @@ body {
     flex: 1;
     overflow-y: auto;
     max-height: 400px;
+    padding: 16px;
 }
 
 .transaction-item {
-    /* Modern card-like appearance for individual transactions */
     padding: 16px;
-    margin-bottom: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    border: var(--glass-border);
+    border-radius: var(--border-radius-sm);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--surface-color);
-    /* Smooth transitions for theme switching and hover effects */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     transition: all 0.3s ease;
-    /* Subtle shadow for depth */
     box-shadow: var(--shadow-small);
 }
 
-/* Add elevation and highlight on hover */
+[data-theme="dark"] .transaction-item {
+    background: rgba(255, 255, 255, 0.04);
+}
+
 .transaction-item:hover {
-    /* Lift the card slightly when hovering */
     box-shadow: var(--shadow-medium);
     transform: translateY(-2px);
-    /* Slightly brighten background on hover */
-    background: rgba(227, 106, 106, 0.08);
+    background: rgba(240, 147, 251, 0.08);
 }
 
 .transaction-info {
@@ -1063,7 +1151,7 @@ body {
 }
 
 .transaction-amount {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 16px;
     text-align: right;
 }
@@ -1077,7 +1165,7 @@ body {
 }
 
 /* ===========================
-   MODALS
+   MODALS — Frosted glass overlay + glass content card
    =========================== */
 
 .modal-overlay {
@@ -1086,7 +1174,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 999;
 }
 
@@ -1104,17 +1194,18 @@ body {
 }
 
 .modal-content {
-    /* Use surface color that adapts to active theme */
-    background: var(--surface-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-large);
-    max-width: 400px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    max-width: 420px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     animation: slideIn 0.3s ease;
-    /* Smooth transition when switching themes */
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 .modal-content.modal-large {
@@ -1124,24 +1215,29 @@ body {
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-20px) scale(0.97);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 .modal-header {
-    padding: 20px;
-    border-bottom: 1px solid var(--border-color);
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+[data-theme="dark"] .modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
 .modal-header h2 {
     font-size: 18px;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -1165,15 +1261,19 @@ body {
 }
 
 .modal-body {
-    padding: 20px;
+    padding: 24px;
 }
 
 .modal-footer {
-    padding: 16px 20px;
-    border-top: 1px solid var(--border-color);
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     gap: 12px;
     justify-content: flex-end;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top-color: rgba(255, 255, 255, 0.05);
 }
 
 .modal-footer .btn {
@@ -1181,16 +1281,22 @@ body {
 }
 
 .modal-info {
-    background-color: #e3f2fd;
-    padding: 12px;
-    border-radius: var(--border-radius);
+    background: rgba(30, 136, 229, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
     font-size: 13px;
     color: #1565c0;
     margin-bottom: 16px;
-    border-left: 4px solid #1976d2;
+    border-left: 4px solid rgba(25, 118, 210, 0.5);
 }
 
-/* Amount Buttons */
+[data-theme="dark"] .modal-info {
+    color: #64b5f6;
+}
+
+/* Amount Buttons — Glassmorphic pills */
 .amount-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1200,11 +1306,14 @@ body {
 
 .amount-btn {
     padding: 12px;
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: white;
+    border: var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     color: var(--text-primary);
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
     transition: var(--transition);
     font-size: 14px;
@@ -1212,27 +1321,35 @@ body {
 
 .amount-btn:hover {
     border-color: var(--primary-color);
-    background-color: var(--background-color);
+    background: var(--glass-bg-hover);
+    box-shadow: 0 0 12px rgba(227, 106, 106, 0.15);
 }
 
 .amount-btn.selected {
-    border-color: var(--primary-color);
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(227, 106, 106, 0.85), rgba(200, 85, 85, 0.9));
+    border-color: transparent;
     color: white;
+    box-shadow: 0 0 16px rgba(227, 106, 106, 0.3);
 }
 
 .selected-amount {
     text-align: center;
     font-size: 14px;
     color: var(--text-secondary);
-    padding: 8px;
-    background-color: var(--background-color);
-    border-radius: var(--border-radius);
+    padding: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: var(--border-radius-sm);
+    border: var(--glass-border);
 }
 
 /* Friend Detail Modal */
 .friend-detail-balance {
-    background-color: var(--background-color);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: var(--glass-border);
     padding: 20px;
     border-radius: var(--border-radius);
     text-align: center;
@@ -1247,8 +1364,11 @@ body {
 
 .friend-detail-balance .balance-value {
     font-size: 28px;
-    font-weight: bold;
-    color: var(--primary-color);
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .friend-transactions {
@@ -1258,26 +1378,18 @@ body {
 
 /* ===========================
    RESPONSIVE DESIGN
-   Adapts layout for different screen sizes using media queries
    =========================== */
 
-/* TABLET BREAKPOINT (max-width: 768px)
-   Hide sidebar and stack content vertically for better mobile experience */
+/* TABLET (max-width: 768px) */
 @media (max-width: 768px) {
-    /* Stack the dashboard container vertically instead of side-by-side */
     .dashboard-container {
         flex-direction: column;
     }
 
-    /* Hide sidebar on tablet - save precious screen real estate */
     .app-sidebar {
         display: none;
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
     }
 
-    /* Expand main content to full width */
     .app-main {
         width: 100%;
         padding: 24px 16px;
@@ -1302,12 +1414,24 @@ body {
 
     .modal-content {
         max-width: 100%;
+        border-radius: var(--border-radius);
     }
 
     .header-content {
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
         text-align: center;
+    }
+
+    .app-header {
+        height: auto;
+        padding: 12px 16px;
+    }
+
+    .app-header.collapsed,
+    .app-header:hover {
+        height: auto;
+        padding: 12px 16px;
     }
 
     .friends-list,
@@ -1316,21 +1440,22 @@ body {
     }
 }
 
-/* MOBILE BREAKPOINT (max-width: 480px)
-   Further reduce padding and font sizes for small phones */
+/* MOBILE (max-width: 480px) */
 @media (max-width: 480px) {
     .app-header {
-        max-height: 140px;
+        height: auto;
         padding: 12px 16px;
     }
 
+    .app-header.collapsed,
     .app-header:hover {
-        max-height: 140px;
+        height: auto;
         padding: 12px 16px;
     }
 
     .login-container {
-        padding: 24px;
+        padding: 28px 24px;
+        border-radius: var(--border-radius);
     }
 
     .login-header h1 {
@@ -1376,5 +1501,14 @@ body {
     #logoutBtn {
         padding: 6px 12px;
         font-size: 12px;
+    }
+
+    /* Reduce blur for mobile performance */
+    .app-header,
+    .transactions-panel,
+    .balance-card,
+    .modal-content {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
 }
