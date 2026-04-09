@@ -879,27 +879,28 @@ body {
 
 /* Shimmer sweep — diagonal light streak */
 @keyframes shimmer {
-    0% { transform: translateX(-100%) rotate(-15deg); }
-    100% { transform: translateX(200%) rotate(-15deg); }
+    0% { left: -60%; }
+    40% { left: 120%; }
+    100% { left: 120%; }
 }
 
 .balance-card::after {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 60%;
-    height: 200%;
+    top: 0;
+    left: -60%;
+    width: 50%;
+    height: 100%;
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.12) 40%,
-        rgba(255, 255, 255, 0.25) 50%,
-        rgba(255, 255, 255, 0.12) 60%,
+        rgba(255, 255, 255, 0.18) 45%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0.18) 55%,
         transparent 100%
     );
-    transform: translateX(-100%) rotate(-15deg);
-    animation: shimmer 4s ease-in-out infinite;
+    transform: skewX(-15deg);
+    animation: shimmer 5s ease-in-out infinite;
     pointer-events: none;
     z-index: 1;
 }
@@ -908,9 +909,9 @@ body {
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(240, 147, 251, 0.06) 40%,
-        rgba(240, 147, 251, 0.12) 50%,
-        rgba(240, 147, 251, 0.06) 60%,
+        rgba(240, 147, 251, 0.08) 45%,
+        rgba(240, 147, 251, 0.16) 50%,
+        rgba(240, 147, 251, 0.08) 55%,
         transparent 100%
     );
 }
