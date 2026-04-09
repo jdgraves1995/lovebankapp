@@ -593,6 +593,9 @@ body {
    40×40 frosted circle with ambient glow & icon crossfade.
    =========================== */
 .theme-orb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -610,7 +613,9 @@ body {
     box-shadow: 0 0 12px rgba(255, 183, 77, 0.35), var(--shadow-small);
     overflow: hidden;
     padding: 0;
+    margin: 0;
     font-family: inherit;
+    color: inherit;
 }
 
 .theme-orb:hover {
