@@ -961,9 +961,50 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize collapsible header right after theme
     HeaderManager.init();
     
+    // Initialize mobile drawer
+    MobileDrawer.init();
+
     // Then initialize app logic and UI
     LoveBank.init();
     autoLogin();
     UI.init();
     setupEventListeners();
 });
+
+// ===========================
+// MOBILE DRAWER
+// Bottom-sheet drawer toggled by hamburger button
+// ===========================
+const MobileDrawer = {
+    drawer: null,
+    overlay: null,
+
+    init() {
+        this.drawer = document.getElementById('mobileDrawer');
+        this.overlay = document.getElementById('mobileDrawerOverlay');
+        const hamburger = document.getElementById('hamburgerBtn');
+        const closeBtn = document.getElementById('drawerCloseBtn');
+
+        if (!this.drawer || !hamburger) return;
+
+        hamburger.addEventListener('click', () => this.open());
+        closeBtn.addEventListener('click', () => this.close());
+        this.overlay.addEventListener('click', () => this.close());
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.close();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) this.close();
+        });
+    },
+
+    open() {
+        this.drawer.classList.add('open');
+        this.overlay.classList.add('open');
+    },
+
+    close() {
+        this.drawer.classList.remove('open');
+        this.overlay.classList.remove('open');
+    }
+};

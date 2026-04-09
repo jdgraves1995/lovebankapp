@@ -38,6 +38,7 @@
                 <div class="header-content">
                     <div class="header-left">
                         <h1>❤️ Love Bank</h1>
+                        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">☰</button>
                     </div>
                     <div class="header-nav">
                         <button id="backToAccountBtn" class="btn btn-secondary btn-back hidden">← Back to My Account</button>
@@ -263,6 +264,44 @@
 
     <!-- Overlay for modals -->
     <div id="modalOverlay" class="modal-overlay hidden"></div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <h2>❤️ Love Bank</h2>
+            <button class="drawer-close-btn" id="drawerCloseBtn">&times;</button>
+        </div>
+        <div class="drawer-content">
+            <div class="sidebar-header">
+                <h2>Welcome to Love Bank</h2>
+                <p class="sidebar-tagline">Invest in your relationships</p>
+            </div>
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="feature-icon">💖</span>
+                    <div>
+                        <h3>Track Your Bonds</h3>
+                        <p>Monitor your love bank balance with friends</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📈</span>
+                    <div>
+                        <h3>Invest &amp; Grow</h3>
+                        <p>Deposit and withdraw love bucks daily</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🤝</span>
+                    <div>
+                        <h3>Connect Friends</h3>
+                        <p>Build and manage your friend network</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

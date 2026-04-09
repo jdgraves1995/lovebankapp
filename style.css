@@ -411,6 +411,9 @@ body {
 }
 
 .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex-shrink: 0;
 }
 
@@ -1377,13 +1380,151 @@ body {
 }
 
 /* ===========================
+   HAMBURGER BUTTON & MOBILE DRAWER
+   Bottom-sheet drawer surfaces sidebar content on mobile.
+   =========================== */
+.hamburger-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+    background: var(--glass-bg-hover);
+    box-shadow: 0 0 12px rgba(240, 147, 251, 0.15);
+}
+
+.mobile-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 60vh;
+    z-index: 1200;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: var(--glass-border);
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+}
+
+.mobile-drawer.open {
+    transform: translateY(0);
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .drawer-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.drawer-close-btn {
+    width: 32px;
+    height: 32px;
+    border: var(--glass-border);
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.drawer-close-btn:hover {
+    background: var(--glass-bg-hover);
+}
+
+.drawer-content {
+    padding: 16px 24px 32px;
+}
+
+.drawer-content .sidebar-header {
+    opacity: 1;
+    margin-bottom: 16px;
+}
+
+.drawer-content .feature-item h3,
+.drawer-content .feature-item p {
+    opacity: 1;
+}
+
+/* ===========================
    RESPONSIVE DESIGN
    =========================== */
 
 /* TABLET (max-width: 768px) */
 @media (max-width: 768px) {
+    .app-header {
+        position: sticky;
+        height: auto;
+        padding: 10px 16px;
+    }
+
+    .app-header.collapsed,
+    .app-header:hover {
+        height: auto;
+        padding: 10px 16px;
+    }
+
+    .header-content {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .hamburger-btn {
+        display: flex;
+    }
+
     .dashboard-container {
         flex-direction: column;
+        margin-top: 0;
     }
 
     .app-sidebar {
@@ -1417,23 +1558,6 @@ body {
         border-radius: var(--border-radius);
     }
 
-    .header-content {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
-
-    .app-header {
-        height: auto;
-        padding: 12px 16px;
-    }
-
-    .app-header.collapsed,
-    .app-header:hover {
-        height: auto;
-        padding: 12px 16px;
-    }
-
     .friends-list,
     .transactions-list {
         max-height: 250px;
@@ -1443,14 +1567,45 @@ body {
 /* MOBILE (max-width: 480px) */
 @media (max-width: 480px) {
     .app-header {
+        position: sticky;
         height: auto;
-        padding: 12px 16px;
+        padding: 8px 12px;
     }
 
     .app-header.collapsed,
     .app-header:hover {
         height: auto;
-        padding: 12px 16px;
+        padding: 8px 12px;
+    }
+
+    .header-content {
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-left h1 {
+        font-size: 18px;
+    }
+
+    .header-nav {
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .header-user {
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .header-user .username {
+        font-size: 12px;
+    }
+
+    #logoutBtn {
+        padding: 5px 10px;
+        font-size: 11px;
     }
 
     .login-container {
@@ -1472,35 +1627,6 @@ body {
 
     .balance-amount {
         font-size: 28px;
-    }
-
-    .header-content {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-        align-items: center;
-    }
-
-    .header-nav {
-        width: 100%;
-        justify-content: center;
-        gap: 6px;
-    }
-
-    .header-user {
-        flex-direction: row;
-        gap: 8px;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .header-user .username {
-        font-size: 12px;
-    }
-
-    #logoutBtn {
-        padding: 6px 12px;
-        font-size: 12px;
     }
 
     /* Reduce blur for mobile performance */
