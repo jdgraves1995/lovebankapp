@@ -459,6 +459,7 @@ const UI = {
                 LoveBank.state.currentViewFriendId = friend.id;
                 UI.updateDashboard();
                 UI.closeFriendsDropdown();
+                MobileDrawer.close();
             });
             this.elements.friendsDropdownList.appendChild(div);
         });
@@ -467,13 +468,6 @@ const UI = {
     toggleFriendsDropdown() {
         this.elements.friendsDropdown.classList.toggle('hidden');
         if (!this.elements.friendsDropdown.classList.contains('hidden')) {
-            // Expand header when opening dropdown so user can see it
-            HeaderManager.expand();
-            // Cancel any pending collapse
-            if (HeaderManager.collapseTimeout) {
-                clearTimeout(HeaderManager.collapseTimeout);
-                HeaderManager.collapseTimeout = null;
-            }
             this.renderFriendsDropdown();
             this.elements.friendSearchInput.focus();
         }
@@ -593,6 +587,7 @@ function setupEventListeners() {
         LoveBank.state.currentViewFriendId = null;
         LoveBank.saveToStorage();
         UI.render();
+        MobileDrawer.close();
     });
 
     // Navigation tabs
@@ -610,16 +605,15 @@ function setupEventListeners() {
         LoveBank.state.currentViewFriendId = null;
         UI.updateDashboard();
         UI.closeFriendsDropdown();
+        MobileDrawer.close();
     });
-
-    // Initialize sidebar in collapsed state (expands on hover via CSS)
-    const sidebar = document.querySelector('.app-sidebar');
-    sidebar.classList.add('collapsed');
 
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         const friendsDropdown = document.querySelector('.friends-dropdown');
-        if (friendsDropdown && !friendsDropdown.contains(e.target)) {
+        const connectBtn = document.getElementById('connectFriendsBtn');
+        if (friendsDropdown && !friendsDropdown.contains(e.target) && 
+            !(connectBtn && connectBtn.contains(e.target))) {
             UI.closeFriendsDropdown();
         }
     });
@@ -984,6 +978,7 @@ const MobileDrawer = {
         this.overlay = document.getElementById('mobileDrawerOverlay');
         const hamburger = document.getElementById('hamburgerBtn');
         const closeBtn = document.getElementById('drawerCloseBtn');
+        const connectFriendsBtn = document.getElementById('connectFriendsBtn');
 
         if (!this.drawer || !hamburger) return;
 
@@ -993,9 +988,13 @@ const MobileDrawer = {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') this.close();
         });
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) this.close();
-        });
+
+        // Connect Friends feature item opens friends dropdown
+        if (connectFriendsBtn) {
+            connectFriendsBtn.addEventListener('click', () => {
+                UI.toggleFriendsDropdown();
+            });
+        }
     },
 
     open() {

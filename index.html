@@ -33,29 +33,14 @@
 
         <!-- Main Dashboard -->
         <div id="dashboard" class="screen">
-            <!-- Header -->
+            <!-- Header — Slim bar: hamburger + title + theme toggle -->
             <header class="app-header">
                 <div class="header-content">
                     <div class="header-left">
-                        <h1>❤️ Love Bank</h1>
                         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">☰</button>
+                        <h1>❤️ Love Bank</h1>
                     </div>
-                    <div class="header-nav">
-                        <button id="backToAccountBtn" class="btn btn-secondary btn-back hidden">← Back to My Account</button>
-                        <div class="nav-item friends-dropdown">
-                            <button id="friendsBtn" class="nav-btn">Friends</button>
-                            <div id="friendsDropdown" class="dropdown-menu hidden">
-                                <div class="dropdown-header">
-                                    <input type="text" id="friendSearchInput" placeholder="Search friends..." class="friend-search">
-                                </div>
-                                <div id="friendsDropdownList" class="dropdown-list">
-                                    <!-- Friends populated by JavaScript -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-user">
-                        <!-- Theme Toggle Switch: Day/Night cycle toggle -->
+                    <div class="header-right">
                         <div id="themeToggleBtn" class="theme-toggle-switch" title="Toggle dark/light mode">
                             <div class="toggle-track">
                                 <div class="toggle-day">☀️</div>
@@ -63,8 +48,6 @@
                                 <div class="toggle-night">🌙</div>
                             </div>
                         </div>
-                        <span id="currentUsername" class="username"></span>
-                        <button id="logoutBtn" class="btn btn-small">Logout</button>
                     </div>
                 </div>
             </header>
@@ -273,30 +256,53 @@
             <button class="drawer-close-btn" id="drawerCloseBtn">&times;</button>
         </div>
         <div class="drawer-content">
-            <div class="sidebar-header">
-                <h2>Welcome to Love Bank</h2>
-                <p class="sidebar-tagline">Invest in your relationships</p>
+            <!-- User info -->
+            <div class="drawer-user-section">
+                <span id="currentUsername" class="username"></span>
+                <button id="logoutBtn" class="btn btn-small btn-danger">Logout</button>
             </div>
-            <div class="features-list">
-                <div class="feature-item">
-                    <span class="feature-icon">💖</span>
-                    <div>
-                        <h3>Track Your Bonds</h3>
-                        <p>Monitor your love bank balance with friends</p>
+            <!-- Navigation -->
+            <div class="drawer-nav-section">
+                <button id="backToAccountBtn" class="btn btn-secondary drawer-nav-btn hidden">← Back to My Account</button>
+                <div class="nav-item friends-dropdown">
+                    <button id="friendsBtn" class="nav-btn drawer-nav-btn">👥 Friends</button>
+                    <div id="friendsDropdown" class="dropdown-menu hidden">
+                        <div class="dropdown-header">
+                            <input type="text" id="friendSearchInput" placeholder="Search friends..." class="friend-search">
+                        </div>
+                        <div id="friendsDropdownList" class="dropdown-list">
+                            <!-- Friends populated by JavaScript -->
+                        </div>
                     </div>
                 </div>
-                <div class="feature-item">
-                    <span class="feature-icon">📈</span>
-                    <div>
-                        <h3>Invest &amp; Grow</h3>
-                        <p>Deposit and withdraw love bucks daily</p>
-                    </div>
+            </div>
+            <!-- Features -->
+            <div class="drawer-features-section">
+                <div class="sidebar-header">
+                    <h2>Welcome to Love Bank</h2>
+                    <p class="sidebar-tagline">Invest in your relationships</p>
                 </div>
-                <div class="feature-item">
-                    <span class="feature-icon">🤝</span>
-                    <div>
-                        <h3>Connect Friends</h3>
-                        <p>Build and manage your friend network</p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">💖</span>
+                        <div>
+                            <h3>Track Your Bonds</h3>
+                            <p>Monitor your love bank balance with friends</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📈</span>
+                        <div>
+                            <h3>Invest &amp; Grow</h3>
+                            <p>Deposit and withdraw love bucks daily</p>
+                        </div>
+                    </div>
+                    <div class="feature-item feature-item-action" id="connectFriendsBtn">
+                        <span class="feature-icon">🤝</span>
+                        <div>
+                            <h3>Connect Friends</h3>
+                            <p>Build and manage your friend network</p>
+                        </div>
                     </div>
                 </div>
             </div>

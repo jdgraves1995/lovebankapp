@@ -417,6 +417,12 @@ body {
     flex-shrink: 0;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
 .header-nav {
     display: flex;
     gap: 8px;
@@ -686,23 +692,10 @@ body {
 }
 
 /* ===========================
-   LEFT SIDEBAR — Glassmorphic icon rail
-   72px collapsed showing emoji icons, 280px expanded on hover.
+   LEFT SIDEBAR — Hidden; replaced by hamburger drawer on all viewports.
    =========================== */
 .app-sidebar {
-    width: 72px;
-    min-width: 72px;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-right: var(--glass-border);
-    padding: 24px 8px;
-    overflow: hidden;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                min-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.3s ease;
-    position: relative;
+    display: none;
 }
 
 .app-sidebar:hover {
@@ -1384,7 +1377,7 @@ body {
    Bottom-sheet drawer surfaces sidebar content on mobile.
    =========================== */
 .hamburger-btn {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 36px;
@@ -1494,6 +1487,85 @@ body {
     opacity: 1;
 }
 
+/* Drawer user section */
+.drawer-user-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    margin-bottom: 16px;
+}
+
+[data-theme="dark"] .drawer-user-section {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.drawer-user-section .username {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+/* Drawer navigation section */
+.drawer-nav-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.drawer-nav-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px 18px;
+    font-size: 15px;
+}
+
+/* Back button inside drawer — visible when not .hidden */
+.drawer-nav-section .btn-back {
+    opacity: 1;
+    pointer-events: auto;
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+    padding: 12px 18px;
+}
+
+/* Friends dropdown inside drawer flows inline, not floating */
+.drawer-nav-section .friends-dropdown {
+    width: 100%;
+}
+
+.drawer-nav-section .dropdown-menu {
+    position: static;
+    min-width: 100%;
+    box-shadow: none;
+    border-radius: var(--border-radius-sm);
+    margin-top: 8px;
+    max-height: 250px;
+}
+
+/* Drawer features section */
+.drawer-features-section {
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .drawer-features-section {
+    border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Connect Friends action item */
+.feature-item-action {
+    cursor: pointer;
+}
+
+.feature-item-action:hover {
+    background: rgba(240, 147, 251, 0.2);
+    transform: translateX(4px);
+}
+
 /* ===========================
    RESPONSIVE DESIGN
    =========================== */
@@ -1518,17 +1590,9 @@ body {
         justify-content: center;
     }
 
-    .hamburger-btn {
-        display: flex;
-    }
-
     .dashboard-container {
         flex-direction: column;
         margin-top: 0;
-    }
-
-    .app-sidebar {
-        display: none;
     }
 
     .app-main {
@@ -1587,25 +1651,6 @@ body {
 
     .header-left h1 {
         font-size: 18px;
-    }
-
-    .header-nav {
-        justify-content: center;
-        gap: 6px;
-    }
-
-    .header-user {
-        gap: 6px;
-        justify-content: center;
-    }
-
-    .header-user .username {
-        font-size: 12px;
-    }
-
-    #logoutBtn {
-        padding: 5px 10px;
-        font-size: 11px;
     }
 
     .login-container {
